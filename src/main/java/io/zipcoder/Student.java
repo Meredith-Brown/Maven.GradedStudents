@@ -64,4 +64,32 @@ public class Student {
         output += "Exam Scores:" + "\n" + "Exam " + examNumber + " -> " + newScore;
         return output;
     }
+
+    public Double getAverageExamScore() {
+        double sum = 0;
+        double size = examScores.size();
+        for(int i = 0; i < size; i++) {
+            sum += examScores.get(i);
+        }
+        double output = sum / size;
+        return output;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Double averageScore = getAverageExamScore();
+        sb.append("Student Name: " + firstName + " " + lastName);
+        sb.append("\n");
+        sb.append("> Average Score: ");
+        sb.append(averageScore);
+        sb.append("\n");
+        sb.append("> Exam Scores: ");
+        sb.append("\n");
+        for (int i = 0; i < examScores.size(); i++) {
+            sb.append("Exam " + (i+1) + " -> " + examScores.get(i));
+            sb.append("\n");
+        }
+        String output = sb.toString();
+        return output;
+    }
 }
