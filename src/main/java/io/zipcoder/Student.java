@@ -30,7 +30,7 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public ArrayList<Double> getExamScores() {
+    public ArrayList<Double> getExamScoresAsArrayList() {
         return examScores;
     }
 
@@ -38,4 +38,30 @@ public class Student {
         return examScores.size();
     }
 
+    public String getExamScores() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Exam Scores:");
+        sb.append("\n");
+        for (int i = 0; i < examScores.size(); i++) {
+            sb.append("Exam " + (i+1) + " -> " + examScores.get(i));
+            sb.append("\n");
+        }
+        String output = sb.toString();
+        return output;
+    }
+
+    public String addExamScore(Double examScore) {
+        examScores.add(examScore);
+        int examNumber = examScores.size();
+        String output = "";
+        output += "Exam Scores:" + "\n" + "Exam " + examNumber + " -> " + examScore;
+        return output;
+    }
+
+    public String setExamScore(int examNumber, double newScore) {
+        examScores.set(examNumber - 1, newScore);
+        String output = "";
+        output += "Exam Scores:" + "\n" + "Exam " + examNumber + " -> " + newScore;
+        return output;
+    }
 }
