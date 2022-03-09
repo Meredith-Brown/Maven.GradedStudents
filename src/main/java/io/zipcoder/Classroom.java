@@ -67,4 +67,24 @@ public class Classroom {
             Collections.sort(sortedStudentList, comparator); // sort the arraylist by the comparator
             return sortedStudentList.toArray(new Student[students.length]); // return the sorted arraylist
         }
+
+        public HashMap<Student, String> getGradeBook() { // HashMaps: https://www.geeksforgeeks.org/java-util-hashmap-in-java-with-examples/
+            int percentileSize = students.length / 10;
+            Student[] sortedStudentList = getStudentsByScore(); // last name might determine grade based on above...
+            HashMap<Student, String> gradeBook = new HashMap<>();
+            for(int i = 0; i < students.length; i++) {
+                if (i > 0 && i < percentileSize - 1) {
+                    gradeBook.put(sortedStudentList[i], "A");
+                } else if (i > percentileSize - 1 && i < percentileSize * 2 - 1) {
+                    gradeBook.put(sortedStudentList[i], "B");
+                } else if (i > percentileSize * 2 - 1 && i < percentileSize * 3 - 1) {
+                    gradeBook.put(sortedStudentList[i], "C");
+                } else if (i > percentileSize * 3 - 1 && i < percentileSize * 4 - 1) {
+                    gradeBook.put(sortedStudentList[i], "D");
+                } else {
+                    gradeBook.put(sortedStudentList[i], "F");
+                }
+            }
+            return gradeBook;
+        }
 }
