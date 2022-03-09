@@ -8,8 +8,4 @@ public class ClassroomTest {
     // A positive test is a test that verifies a correct functionality, a negative test verifies that
     // a function will fail or throw an exception.
 
-    @Test
-    // Given
-    // When
-    // Then
 }
