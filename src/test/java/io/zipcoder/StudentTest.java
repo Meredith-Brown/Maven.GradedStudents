@@ -168,4 +168,82 @@ public class StudentTest {
         // Then
         Assert.assertNotEquals(expectedOutput, actualOutput);
     }
+
+    @Test
+    public void addExamScoreTestPositive() {
+        // Given
+        String firstName = "Meredith";
+        String lastName = "Brown";
+        Double newExamScore = 50.0;
+        Double[] examScores = {100.0, 90.0, 80.0, 70.0, 60.0};
+        ArrayList<Double> expectedExamScores = new ArrayList<>(Arrays.asList(examScores));
+        // When
+        Student student = new Student(firstName, lastName, examScores);
+        student.addExamScore(newExamScore);
+        // Then
+        Assert.assertEquals(newExamScore, student.examScores.get(examScores.length));
+    }
+
+    @Test
+    public void addExamScoreTestNegative() {
+        // Given
+        String firstName = "Meredith";
+        String lastName = "Brown";
+        Double newExamScore = 50.0;
+        Double[] examScores = {100.0, 90.0, 80.0, 70.0, 60.0};
+        ArrayList<Double> expectedExamScores = new ArrayList<>(Arrays.asList(examScores));
+        // When
+        Student student = new Student(firstName, lastName, examScores);
+        student.addExamScore(newExamScore);
+        newExamScore += 5;
+        // Then
+        Assert.assertNotEquals(newExamScore, student.examScores.get(examScores.length - 1));
+    }
+
+    @Test
+    public void setExamScoreTestPositive() {
+        // Given
+        String firstName = "Meredith";
+        String lastName = "Brown";
+        Double newExamScore = 35.0;
+        Double[] examScores = {100.0, 90.0, 80.0, 70.0, 60.0};
+        ArrayList<Double> expectedExamScores = new ArrayList<>(Arrays.asList(examScores));
+        // When
+        Student student = new Student(firstName, lastName, examScores);
+        student.setExamScore(1, newExamScore);
+        // Then
+        Assert.assertEquals(newExamScore, student.examScores.get(0));
+    }
+
+    @Test
+    public void getAverageExamScoreTestPositive() {
+        // Given
+        String firstName = "Meredith";
+        String lastName = "Brown";
+        Double expectedOutput = 80.0;
+        Double[] examScores = {100.0, 90.0, 80.0, 70.0, 60.0};
+        ArrayList<Double> expectedExamScores = new ArrayList<>(Arrays.asList(examScores));
+        // When
+        Student student = new Student(firstName, lastName, examScores);
+        Double actualOutput = student.getAverageExamScore();
+        // Then
+        Assert.assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void toStringTestPositive() {
+        // Given
+        String firstName = "Meredith";
+        String lastName = "Brown";
+        Double[] examScores = {100.0, 90.0, 80.0, 70.0, 60.0};
+        ArrayList<Double> expectedExamScores = new ArrayList<>(Arrays.asList(examScores));
+        String expectedOutput = "Student Name: Meredith Brown" + "\n" + "> Average Score: 80.0" + "\n"
+                + "> Exam Scores: " + "\n" + "Exam 1 -> 100.0" + "\n" + "Exam 2 -> 90.0" + "\n" +
+                "Exam 3 -> 80.0" + "\n" + "Exam 4 -> 70.0" + "\n" + "Exam 5 -> 60.0" + "\n";
+        // When
+        Student student = new Student(firstName, lastName, examScores);
+        String actualOutput = student.toString();
+        // Then
+        Assert.assertEquals(expectedOutput, actualOutput);
+    }
 }
