@@ -13,7 +13,7 @@ public class StudentTest {
     // A positive test is a test that verifies a correct functionality,
     // a negative test verifies that a function will fail or throw an exception.
 
-    @Test
+    @Test // for framework -- called an annotation
     public void constructorTestPositive() {
         // Given
         String firstName = "Meredith";
@@ -58,10 +58,11 @@ public class StudentTest {
         ArrayList<Double> expectedExamScores = new ArrayList<>(Arrays.asList(examScores));
         Student student = new Student(firstName, lastName, examScores);
         // When
-        student.setFirstName(firstName);
+        String expectedFirstName = "Naomi";
+        student.setFirstName(expectedFirstName);
         // Then
         String actualFirstName = student.getFirstName();
-        Assert.assertEquals(firstName, actualFirstName);
+        Assert.assertEquals(expectedFirstName, actualFirstName);
     }
 
     @Test
