@@ -3,6 +3,8 @@ package io.zipcoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class ClassroomTest {
     // Ensure positive and negative unit tests exist per feature of the application.
     // https://studiofreya.com/java/testing-java-with-junit/
@@ -147,5 +149,91 @@ public class ClassroomTest {
         double actual = classroom.getAverageExamScores();
         // Then
         Assert.assertNotEquals(expected, actual, 0.01);
+    }
+
+    @Test
+    public void addStudentPositiveTest() {
+        // Given
+        Double[] examsMeredith = {100.0, 99.0, 98.0};
+        Student studentMeredith = new Student("Meredith", "Brown", examsMeredith);
+        Student[] arrayOfStudents = new Student[]{null};
+        Classroom classroom = new Classroom(arrayOfStudents);
+        // When
+        classroom.addStudent(studentMeredith);
+        Student[] returnArray = classroom.getStudents();
+        Student actualStudent = returnArray[returnArray.length-1];
+        // Then
+        Assert.assertEquals(studentMeredith, actualStudent);
+    }
+
+    @Test
+    public void addStudentNegativeTest() {
+        // Given
+        Double[] examsMeredith = {100.0, 99.0, 98.0};
+        Double[] examsNusera = {100.0, 99.0, 98.0};
+        Student studentMeredith = new Student("Meredith", "Brown", examsMeredith);
+        Student studentNusera = new Student("Nusera", "Neha", examsNusera);
+        Student[] arrayOfStudents = new Student[]{null};
+        Classroom classroom = new Classroom(arrayOfStudents);
+        // When
+        classroom.addStudent(studentMeredith);
+        Student[] returnArray = classroom.getStudents();
+        Student actualStudent = returnArray[returnArray.length-1];
+        // Then
+        Assert.assertNotEquals(studentNusera, actualStudent);
+    }
+
+    @Test
+    public void removeStudentPositiveTest() {
+        // Given
+        Double[] examsMeredith = {100.0, 99.0, 98.0};
+        Double[] examsMike = {98.0, 99.0, 100.0};
+        Double[] examsNusera = {95.0, 96.0, 97.0};
+        Student studentMeredith = new Student("Meredith", "Brown", examsMeredith);
+        Student studentMike = new Student("Mike", "Prentice", examsMike);
+        Student studentNusera = new Student("Nusera", "Neha", examsNusera);
+        Student[] student3Students = {studentMeredith, studentMike, studentNusera};
+        Classroom classroom = new Classroom(student3Students);
+        // When
+        classroom.removeStudent("Meredith", "Brown");
+        // Then
+        Assert.assertFalse(Arrays.asList(classroom.students).contains(studentMeredith));
+    }
+
+    @Test
+    public void removeStudentNegativeTest() {
+        // Given
+        Double[] examsMeredith = {100.0, 99.0, 98.0};
+        Double[] examsMike = {98.0, 99.0, 100.0};
+        Double[] examsNusera = {95.0, 96.0, 97.0};
+        Student studentMeredith = new Student("Meredith", "Brown", examsMeredith);
+        Student studentMike = new Student("Mike", "Prentice", examsMike);
+        Student studentNusera = new Student("Nusera", "Neha", examsNusera);
+        Student[] student3Students = {studentMeredith, studentMike, studentNusera};
+        Classroom classroom = new Classroom(student3Students);
+        // When
+        classroom.removeStudent("Meredith", "Brown");
+        // Then
+        Assert.assertTrue(!Arrays.asList(classroom.students).contains(studentMeredith));
+    }
+
+    @Test
+    public void getStudentsByScorePositiveTest() {
+        // Given
+        Double[] examsMeredith = {100.0, 99.0, 98.0};
+        Double[] examsMike = {99.0, 98.0, 97.0};
+        Double[] examsNusera = {95.0, 96.0, 97.0};
+        Double[] examsYun = {95.0, 96.0, 97.0};
+        Student studentNusera = new Student("Nusera", "Neha", examsNusera);
+        Student studentYun = new Student("Yun", "Cho", examsYun);
+        Student studentMeredith = new Student("Meredith", "Brown", examsMeredith);
+        Student studentMike = new Student("Mike", "Prentice", examsMike);
+        Student[] student4Students = {studentNusera, studentYun, studentMeredith, studentMike};
+        Classroom classroom = new Classroom(student4Students);
+        // When
+        Student[] expectedArray = {studentMeredith, studentMike,studentNusera, studentYun};
+        Student[] actualArray = classroom.getStudentsByScore();
+        // Then
+        Assert.assertEquals(expectedArray, actualArray);
     }
 }
