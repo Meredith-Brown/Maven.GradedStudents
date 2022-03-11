@@ -287,8 +287,51 @@ public class ClassroomTest {
         // When
         Student[] expectedArray = {studentMeredith, studentMike, studentYun, studentNusera};
         HashMap<Student, String> actual = classroom3.getGradeBook();
+        String actualBatman = actual.get(studentBatman);
+        String actualMeredith = actual.get(studentMeredith);
+        String expectedBatman = "D";
+        String expectedMeredith = "A";
         // Then
-        Assert.assertEquals(expectedArray, actual);
+        Assert.assertEquals(expectedBatman, actualBatman);
+        Assert.assertEquals(expectedMeredith, actualMeredith);
+    }
+
+    @Test
+    public void hashMapNegativeTest() {
+        // Given
+        Double[] examsMeredith = {100.0, 99.0, 98.0};
+        Double[] examsMike = {99.0, 98.0, 97.0};
+        Double[] examsNusera = {95.0, 96.0, 97.0};
+        Double[] examsYun = {95.0, 95.0, 97.0};
+        Double[] examsKris = {80.0, 99.0, 78.0};
+        Double[] examsDolio = {77.0, 76.0, 75.0};
+        Double[] examsBatman = {74.0, 72.0, 71.0};
+        Double[] examsJason = {67.0, 66.0, 55.0};
+        Double[] examsBoatyMcBoatFace = {44.0, 43.0, 42.0};
+        Double[] examsDavid = {5.0, 6.0, 37.0};
+        Student studentNusera = new Student("Nusera", "Neha", examsNusera);
+        Student studentYun = new Student("Yun", "Cho", examsYun);
+        Student studentMeredith = new Student("Meredith", "Brown", examsMeredith);
+        Student studentMike = new Student("Mike", "Prentice", examsMike);
+        Student studentKris = new Student("Kris", "Younger", examsKris);
+        Student studentDolio = new Student("Dolio", "Durant", examsDolio);
+        Student studentBatman = new Student("Bat", "Man", examsBatman);
+        Student studentJason = new Student("Jason", "Lee", examsJason);
+        Student studentBoaty = new Student("Boaty", "McBoatFace", examsBoatyMcBoatFace);
+        Student studentDavid = new Student("David", "Cun", examsDavid);
+        Student[] student10Students = {studentNusera, studentYun, studentMeredith, studentMike,
+                studentKris, studentDolio, studentBatman, studentJason, studentBoaty, studentDavid};
+        Classroom classroom3 = new Classroom(student10Students);
+        // When
+        Student[] expectedArray = {studentMeredith, studentMike, studentYun, studentNusera};
+        HashMap<Student, String> actual = classroom3.getGradeBook();
+        String actualBatman = actual.get(studentBatman);
+        String actualMeredith = actual.get(studentMeredith);
+        String expectedBatman = "A";
+        String expectedMeredith = "D";
+        // Then
+        Assert.assertNotEquals(expectedBatman, actualBatman);
+        Assert.assertNotEquals(expectedMeredith, actualMeredith);
     }
 
 }
