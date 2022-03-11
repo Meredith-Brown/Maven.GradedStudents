@@ -60,35 +60,27 @@ public class Classroom {
         }
 
     public Student[] getStudentsByScore() {
-        Student temporary;
-        List<Student> sortedStudentList = Arrays.asList(students);
-        for (int i = 0; i < sortedStudentList.size() - 1; i++) {
-            if (sortedStudentList.get(i).getAverageExamScore() < sortedStudentList.get(i+1).getAverageExamScore()) {
-                temporary = sortedStudentList.get(i);
-                sortedStudentList.set(i, sortedStudentList.get(i+1));
-                sortedStudentList.set(i+1, temporary);
-                i--;
-            } else if (Objects.equals(students[i].getAverageExamScore(), students[i+1].getAverageExamScore())) {
-                // if equal - sort by last name, if equal - sort by first name
-            } else {
-
-            }
-        }
-        return null;
+        List<Student> sortedStudentList = Arrays.asList(students); // convert array to arraylist
+        Comparator<Student> comparator = Comparator.comparingDouble((Student s) -> // create new comparator, "s" operates as index
+                -s.getAverageExamScore())
+                .thenComparing(s -> s.getLastName()).thenComparing(s -> s.getFirstName()); // compare by exam score, then last name, then first name
+        Collections.sort(sortedStudentList, comparator); // sort the arraylist by the comparator
+        return sortedStudentList.toArray(new Student[students.length]); // return the sorted arraylist
     }
+
 
     public HashMap<Student, String> getGradeBook() { // HashMaps: https://www.geeksforgeeks.org/java-util-hashmap-in-java-with-examples/
             int percentileSize = students.length / 10;
             Student[] sortedStudentList = getStudentsByScore(); // last name might determine grade based on above...
             HashMap<Student, String> gradeBook = new HashMap<>();
             for(int i = 0; i < students.length; i++) {
-                if (i > 0 && i < percentileSize - 1) {
+                if (i >= 0 && i <= percentileSize - 1) {
                     gradeBook.put(sortedStudentList[i], "A");
-                } else if (i > percentileSize - 1 && i < percentileSize * 2 - 1) {
+                } else if (i > percentileSize - 1 && i <= percentileSize * 3 - 1) {
                     gradeBook.put(sortedStudentList[i], "B");
-                } else if (i > percentileSize * 2 - 1 && i < percentileSize * 3 - 1) {
+                } else if (i > percentileSize * 3 - 1 && i <= percentileSize * 5 - 1) {
                     gradeBook.put(sortedStudentList[i], "C");
-                } else if (i > percentileSize * 3 - 1 && i < percentileSize * 4 - 1) {
+                } else if (i > percentileSize * 5 - 1 && i <= percentileSize * 9 - 1) {
                     gradeBook.put(sortedStudentList[i], "D");
                 } else {
                     gradeBook.put(sortedStudentList[i], "F");
